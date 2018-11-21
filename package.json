@@ -1,0 +1,43 @@
+{
+  "name": "openapi-ts-client-gen",
+  "version": "1.0.0",
+  "keywords": [
+    "openapi",
+    "swagger",
+    "typescript",
+    "client",
+    "sdk",
+    "generator",
+    "generation"
+  ],
+  "description": "An OpenAPI (Swagger) TypeScript client generator",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "repository": "https://github.com/lukeautry/openapi-ts-client-gen",
+  "author": "Luke Autry <lukeautry@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "yarn tsc",
+    "generate": "yarn rimraf ./artifacts/api.ts && yarn tsc && node ./dist/cli.js -f ./artifacts/swagger.json -n TestClient -o ./artifacts/api.ts"
+  },
+  "dependencies": {
+    "handlebars": "^4.0.12",
+    "superagent": "^4.0.0",
+    "yargs": "^12.0.5"
+  },
+  "devDependencies": {
+    "@types/handlebars": "^4.0.39",
+    "@types/node": "^10.12.9",
+    "@types/superagent": "^3.8.4",
+    "@types/yargs": "^12.0.1",
+    "typescript": "^3.1.6",
+    "rimraf": "^2.6.2"
+  },
+  "peerDependencies": {
+    "@types/moment": "^2.13.0",
+    "moment": "^2.22.2"
+  },
+  "bin": {
+    "openapi-ts-client-gen": "dist/cli.js"
+  }
+}
