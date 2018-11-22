@@ -1,6 +1,6 @@
 {
   "name": "openapi-ts-client-gen",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "keywords": [
     "openapi",
     "swagger",
@@ -27,17 +27,21 @@
   },
   "devDependencies": {
     "@types/handlebars": "^4.0.39",
+    "@types/moment": "^2.13.0",
     "@types/node": "^10.12.9",
     "@types/superagent": "^3.8.4",
     "@types/yargs": "^12.0.1",
-    "typescript": "^3.1.6",
-    "rimraf": "^2.6.2"
+    "moment": "^2.22.2",
+    "rimraf": "^2.6.2",
+    "typescript": "^3.1.6"
   },
   "peerDependencies": {
     "@types/moment": "^2.13.0",
-    "moment": "^2.22.2"
+    "@types/superagent": "^3.8.4",
+    "moment": "^2.22.2",
+    "superagent": "^4.0.0"
   },
   "bin": {
-    "openapi-ts-client-gen": "dist/cli.js"
+    "openapi-ts-client-gen": "./dist/cli.js"
   }
 }
