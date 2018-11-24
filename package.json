@@ -1,6 +1,6 @@
 {
   "name": "openapi-ts-client-gen",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "keywords": [
     "openapi",
     "swagger",
@@ -18,7 +18,8 @@
   "license": "MIT",
   "scripts": {
     "build": "yarn tsc",
-    "generate": "yarn rimraf ./artifacts/api.ts && yarn tsc && node ./dist/cli.js -f ./artifacts/swagger.json -n TestClient -o ./artifacts/api.ts"
+    "generate": "yarn rimraf ./artifacts/api.ts && yarn tsc && node ./dist/cli.js -f ./artifacts/swagger.json -n TestClient -o ./artifacts/api.ts",
+    "prepublish": "yarn build"
   },
   "dependencies": {
     "handlebars": "^4.0.12",
