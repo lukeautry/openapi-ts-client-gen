@@ -131,7 +131,7 @@ export namespace ${namespace} {
        * {{description}}
        */
       {{/if}}
-      {{propertyName}}: {{propertyType}};
+      '{{propertyName}}'{{isRequiredChar}}: {{propertyType}};
       {{/properties}}
     }
     {{/models}}
@@ -343,7 +343,7 @@ const getTemplateView = (
         });
 
         let operationId = operation.operationId.replace("_", "");
-        if (tag) {
+        if (tag && tag.toLowerCase() !== operationId.toLowerCase()) {
           operationId = operationId.replace(tag, "");
         }
 
@@ -447,7 +447,8 @@ const getTemplateView = (
             );
 
           return {
-            propertyName: `${propertyKey}${isRequired ? "" : "?"}`,
+            isRequiredChar: isRequired ? "" : "?",
+            propertyName: propertyKey,
             propertyType: getPropertyTypeFromSwaggerProperty(property),
             description: property.description
           };
