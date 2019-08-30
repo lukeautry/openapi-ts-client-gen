@@ -343,7 +343,7 @@ const getTemplateView = (
         });
 
         let operationId = operation.operationId.replace("_", "");
-        if (tag) {
+        if (tag && tag.toLowerCase() !== operationId.toLowerCase()) {
           operationId = operationId.replace(tag, "");
         }
 
