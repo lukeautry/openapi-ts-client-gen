@@ -131,7 +131,7 @@ export namespace ${namespace} {
        * {{description}}
        */
       {{/if}}
-      {{propertyName}}: {{propertyType}};
+      '{{propertyName}}'{{isRequiredChar}}: {{propertyType}};
       {{/properties}}
     }
     {{/models}}
@@ -447,7 +447,8 @@ const getTemplateView = (
             );
 
           return {
-            propertyName: `${propertyKey}${isRequired ? "" : "?"}`,
+            isRequiredChar: isRequired ? "" : "?",
+            propertyName: propertyKey,
             propertyType: getPropertyTypeFromSwaggerProperty(property),
             description: property.description
           };
