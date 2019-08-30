@@ -131,7 +131,7 @@ export namespace ${namespace} {
        * {{description}}
        */
       {{/if}}
-      "{{propertyName}}": {{propertyType}};
+      '{{propertyName}}'{{isRequiredChar}}: {{propertyType}};
       {{/properties}}
     }
     {{/models}}
@@ -199,7 +199,7 @@ const getPropertyTypeFromSwaggerProperty = (
   if (!property) {
     return "void";
   }
-
+  
   if (property.type) {
     if (property.type === "integer" || property.format === "double") {
       if (property.format === "int64") {
@@ -208,7 +208,7 @@ const getPropertyTypeFromSwaggerProperty = (
       if (property.enum) {
         return stringifyNumberEnum(property.enum);
       }
-
+      
       return "number";
     }
     if (property.type === "boolean") {
@@ -217,25 +217,25 @@ const getPropertyTypeFromSwaggerProperty = (
     if (property.type === "string") {
       return property.format === "date-time" ? "Date" : "string";
     }
-
+    
     if (property.type === "array") {
       const items = property.items as Swagger.ISchema;
       if (!items) {
         throw new Error();
       }
-
+      
       if (items.type) {
         return `any[]`;
       }
-
+      
       return `${getTypeFromRef(items.$ref as string)}[]`;
     }
   }
-
+  
   if (property.$ref) {
     return getTypeFromRef(property.$ref);
   }
-
+  
   return "any";
 };
 
@@ -244,17 +244,17 @@ const getTypeScriptTypeFromSwaggerType = (schema: Swagger.ISchema) => {
     if (schema.enum) {
       return stringifyNumberEnum(schema.enum);
     }
-
+    
     return "number";
   }
-
+  
   if (schema.type === "boolean") {
     return "boolean";
   }
   if (schema.type === "string") {
     return schema.format === "date-time" ? "Date" : "string";
   }
-
+  
   return undefined;
 };
 
@@ -268,14 +268,14 @@ const getPropertyTypeFromSwaggerParameter = (
       return tsType;
     }
   }
-
+  
   const bodyParameter = parameter as Swagger.IBodyParameter;
   const schema = bodyParameter.schema;
   if (schema) {
     if (schema.$ref) {
       return getTypeFromRef(schema.$ref);
     }
-
+    
     if (schema.type === "array") {
       const items = schema.items as Swagger.ISchema;
       if (items.$ref) {
@@ -289,7 +289,7 @@ const getPropertyTypeFromSwaggerParameter = (
       }
     }
   }
-
+  
   return "any";
 };
 
@@ -297,7 +297,7 @@ const getNormalizedDefinitionKey = (key: string) => {
   if (key.includes("[]")) {
     return key;
   }
-
+  
   return key.replace("[", "").replace("]", "");
 };
 
@@ -309,12 +309,12 @@ const getTemplateView = (
   if (!definitions) {
     throw new Error("No definitions.");
   }
-
+  
   const paths = swagger.paths;
   if (!paths) {
     throw new Error("No paths.");
   }
-
+  
   const serviceMap: { [serviceName: string]: ITemplateService } = {};
   Object.keys(paths).forEach(pathKey => {
     const methods = [
@@ -327,7 +327,7 @@ const getTemplateView = (
       "head"
     ];
     const path = paths[pathKey];
-
+    
     Object.keys(path)
       .filter(operationKey => methods.find(m => m === operationKey))
       .forEach(operationKey => {
@@ -335,21 +335,21 @@ const getTemplateView = (
         if (!operation.operationId || !operation.tags) {
           throw new Error("no tags for " + JSON.stringify(path));
         }
-
+        
         const tag = operation.tags[0];
         const service = (serviceMap[tag] = serviceMap[tag] || {
           name: `${tag}Service`,
           operations: []
         });
-
+        
         let operationId = operation.operationId.replace("_", "");
         if (tag && tag.toLowerCase() !== operationId.toLowerCase()) {
           operationId = operationId.replace(tag, "");
         }
-
+        
         const parameters = operation.parameters;
         const operationParameters = new Array<ITemplateOperationParameters>();
-
+        
         // /api/{someParam}/{anotherParam} => /api/${someParam}/${anotherParam}
         let urlTemplate = `${pathKey}`.replace(/\{/g, "${");
         let signature = "";
@@ -357,22 +357,22 @@ const getTemplateView = (
         let queryParameters: string[] | undefined = undefined;
         let bodyParameter: string | undefined;
         let hasBodyParameter = false;
-
+        
         if (parameters && parameters.length) {
           paramsInterfaceName = `I${tag}${operationId.charAt(0).toUpperCase() +
-            operationId.slice(1)}Params`;
+          operationId.slice(1)}Params`;
           signature = `_params: ${paramsInterfaceName}`;
           parameters.forEach(parameter => {
             const parameterName = parameter.name;
-
+            
             operationParameters.push({
               parameterName: `${parameterName}${
                 parameter.required === false ? "?" : ""
-              }`,
+                }`,
               parameterType: getPropertyTypeFromSwaggerParameter(parameter),
               description: parameter.description
             });
-
+            
             if (parameter.in === "path") {
               urlTemplate = urlTemplate.replace(
                 parameter.name,
@@ -380,20 +380,20 @@ const getTemplateView = (
               );
               return;
             }
-
+            
             if (parameter.in === "query") {
               queryParameters = queryParameters || new Array<string>();
               queryParameters.push(parameterName);
               return;
             }
-
+            
             if (parameter.in === "body") {
               hasBodyParameter = true;
               bodyParameter = parameterName;
             }
           });
         }
-
+        
         let returnType = "void";
         if (operation.responses["200"]) {
           returnType = getNormalizedDefinitionKey(
@@ -401,7 +401,7 @@ const getTemplateView = (
               .schema as Swagger.ISchema)
           );
         }
-
+        
         service.operations.push({
           id: operationId.charAt(0).toLowerCase() + operationId.slice(1),
           method: operationKey.toUpperCase(),
@@ -418,7 +418,7 @@ const getTemplateView = (
         } as ITemplateOperation);
       });
   });
-
+  
   return {
     baseUrl,
     apiPath: swagger.basePath as string,
@@ -428,13 +428,13 @@ const getTemplateView = (
       if (!definition) {
         throw new Error("No definition found.");
       }
-
+      
       const properties = definition.properties;
       if (!properties) {
         console.log(definition);
         throw new Error("No definition properties found.");
       }
-
+      
       return {
         name: `${getNormalizedDefinitionKey(definitionKey)}`,
         description: definition.description,
@@ -445,9 +445,10 @@ const getTemplateView = (
             definition.required.find(
               propertyName => propertyName === propertyKey
             );
-
+          
           return {
-            propertyName: `${propertyKey}${isRequired ? "" : "?"}`,
+            isRequiredChar: isRequired ? '' : '?',
+            propertyName: propertyKey,
             propertyType: getPropertyTypeFromSwaggerProperty(property),
             description: property.description
           };
@@ -487,22 +488,22 @@ export interface IGenerateParams {
 }
 
 export const generate = async ({
-  type,
-  srcPath,
-  destPath,
-  baseUrl,
-  namespace,
-  spec
-}: IGenerateParams) => {
+                                 type,
+                                 srcPath,
+                                 destPath,
+                                 baseUrl,
+                                 namespace,
+                                 spec
+                               }: IGenerateParams) => {
   if (!spec) {
     const fetcher = specFetch[type];
     if (!fetcher) {
       throw new Error(`unknown source type: ${type}`);
     }
-
+    
     spec = await fetcher(srcPath);
   }
-
+  
   try {
     const compiled = template(namespace)(
       getTemplateView(spec, baseUrl || spec.host || "")
