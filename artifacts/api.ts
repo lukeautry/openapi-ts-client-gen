@@ -67,57 +67,57 @@ export namespace TestClient {
 
 
     export interface Order {
-      id?: string;
-      petId?: string;
-      quantity?: number;
-      shipDate?: Date;
+      'id'?: string;
+      'petId'?: string;
+      'quantity'?: number;
+      'shipDate'?: Date;
       /**
        * Order Status
        */
-      status?: string;
-      complete?: boolean;
+      'status'?: string;
+      'complete'?: boolean;
     }
 
     export interface User {
-      id?: string;
-      username?: string;
-      firstName?: string;
-      lastName?: string;
-      email?: string;
-      password?: string;
-      phone?: string;
+      'id'?: string;
+      'username'?: string;
+      'firstName'?: string;
+      'lastName'?: string;
+      'email'?: string;
+      'password'?: string;
+      'phone'?: string;
       /**
        * User Status
        */
-      userStatus?: number;
+      'userStatus'?: number;
     }
 
     export interface Category {
-      id?: string;
-      name?: string;
+      'id'?: string;
+      'name'?: string;
     }
 
     export interface Tag {
-      id?: string;
-      name?: string;
+      'id'?: string;
+      'name'?: string;
     }
 
     export interface Pet {
-      id?: string;
-      category?: Category;
-      name: string;
-      photoUrls: any[];
-      tags?: Tag[];
+      'id'?: string;
+      'category'?: Category;
+      'name': string;
+      'photoUrls': any[];
+      'tags'?: Tag[];
       /**
        * pet status in the store
        */
-      status?: string;
+      'status'?: string;
     }
 
     export interface ApiResponse {
-      code?: number;
-      type?: string;
-      message?: string;
+      'code'?: number;
+      'type'?: string;
+      'message'?: string;
     }
 
 
