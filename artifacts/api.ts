@@ -66,11 +66,11 @@ export namespace TestClient {
   };
 
 
-    export interface IManagementFee {
+    export interface INumberDictionary {
       [key: string]: number;
     }
 
-    export interface IBlockchainAddresses {
+    export interface IStringArrayDictionary {
       [key: string]: string[];
     }
 
