@@ -859,6 +859,24 @@
     }
   },
   "definitions": {
+    "INumberDictionary": {
+        "properties": {},
+        "type": "object",
+        "additionalProperties": {
+            "type": "number",
+            "format": "double"
+        }
+    },
+    "IStringArrayDictionary": {
+        "properties": {},
+        "type": "object",
+        "additionalProperties": {
+            "items": {
+                "type": "string"
+            },
+            "type": "array"
+        }
+    },
     "Order": {
       "type": "object",
       "properties": {

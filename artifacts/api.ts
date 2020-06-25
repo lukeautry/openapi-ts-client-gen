@@ -66,6 +66,14 @@ export namespace TestClient {
   };
 
 
+    export interface IManagementFee {
+      [key: string]: number;
+    }
+
+    export interface IBlockchainAddresses {
+      [key: string]: string[];
+    }
+
     export interface Order {
       'id'?: string;
       'petId'?: string;
@@ -106,7 +114,7 @@ export namespace TestClient {
       'id'?: string;
       'category'?: Category;
       'name': string;
-      'photoUrls': any[];
+      'photoUrls': string[];
       'tags'?: Tag[];
       /**
        * pet status in the store
