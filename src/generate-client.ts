@@ -24,6 +24,7 @@ interface ITemplateModel {
     propertyType: string;
     description?: string;
   }>;
+  additionalPropertiesType?: string;
 }
 
 interface ITemplateOperation {
@@ -133,6 +134,9 @@ export namespace ${namespace} {
       {{/if}}
       '{{propertyName}}'{{isRequiredChar}}: {{propertyType}};
       {{/properties}}
+      {{#if additionalPropertiesType}}
+      [key: string]: {{additionalPropertiesType}};
+      {{/if}}
     }
     {{/models}}
 
@@ -225,7 +229,7 @@ const getPropertyTypeFromSwaggerProperty = (
       }
 
       if (items.type) {
-        return `any[]`;
+        return `${items.type}[]`;
       }
 
       return `${getTypeFromRef(items.$ref as string)}[]`;
@@ -434,6 +438,12 @@ const getTemplateView = (
         console.log(definition);
         throw new Error("No definition properties found.");
       }
+      const additionalProperties = definition.additionalProperties;
+      let additionalPropertiesType = '';
+      if (additionalProperties && typeof additionalProperties !== 'boolean') {
+        additionalPropertiesType = getPropertyTypeFromSwaggerProperty(additionalProperties);
+        console.log(`found ${additionalPropertiesType} type for ${definitionKey}`);
+      } 
 
       return {
         name: `${getNormalizedDefinitionKey(definitionKey)}`,
@@ -452,7 +462,8 @@ const getTemplateView = (
             propertyType: getPropertyTypeFromSwaggerProperty(property),
             description: property.description
           };
-        })
+        }),
+        additionalPropertiesType,
       };
     })
   };

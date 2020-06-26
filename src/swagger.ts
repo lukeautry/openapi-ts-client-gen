@@ -132,7 +132,7 @@ export interface Info {
   export interface ISchema extends IBaseSchema {
     $ref?: string;
     allOf?: [ISchema];
-    additionalProperties?: boolean;
+    additionalProperties?: boolean | ISchema;
     properties?: { [propertyName: string]: ISchema };
     discriminator?: string;
     readOnly?: boolean;
