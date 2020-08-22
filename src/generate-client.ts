@@ -19,6 +19,7 @@ interface ITemplateService {
 interface ITemplateModel {
   name: string;
   description?: string;
+  unionOf: string;
   properties: Array<{
     propertyName: string;
     propertyType: string;
@@ -124,6 +125,10 @@ export namespace ${namespace} {
      * {{description}}
      */
     {{/if}}
+
+    {{#if unionOf}}
+    export type {{name}} = {{unionOf}};
+    {{else}}
     export interface {{name}} {
       {{#properties}}
       {{#if description}}
@@ -131,9 +136,10 @@ export namespace ${namespace} {
        * {{description}}
        */
       {{/if}}
-      {{propertyName}}: {{propertyType}};
+      {{propertyName}}: {{{propertyType}}};
       {{/properties}}
     }
+    {{/if}}
     {{/models}}
 
     {{#services}}
@@ -147,7 +153,7 @@ export namespace ${namespace} {
        * {{description}}
        */
       {{/if}}
-      {{parameterName}}: {{parameterType}};
+      {{parameterName}}: {{{parameterType}}};
       {{/parameters}}
     }
     {{/if}}
@@ -177,7 +183,7 @@ export namespace ${namespace} {
         {{/if}}
         {{#if hasBodyParameter}}
 
-        requestParams.body = _params.{{bodyParameter}};
+        requestParams.body = _params{{bodyParameter}};
         {{/if}}
         return this.executeRequest<{{returnType}}>(requestParams, requestModFn);
       }
@@ -188,9 +194,11 @@ export namespace ${namespace} {
 `);
 
 const stringifyNumberEnum = (enumValue: Array<any>) =>
-  enumValue.map(s => `${s}`).join(" | ");
+  enumValue.map((s) => `${s}`).join(" | ");
 const getTypeFromRef = ($ref: string) => {
-  return `${$ref.replace("#/definitions/", "")}`;
+  return `${$ref
+    .replace("#/definitions/", "")
+    .replace("#/components/schemas/", "")}`;
 };
 
 const getPropertyTypeFromSwaggerProperty = (
@@ -215,6 +223,10 @@ const getPropertyTypeFromSwaggerProperty = (
       return "boolean";
     }
     if (property.type === "string") {
+      if (property.enum) {
+        return property.enum.map(v => `"${v}"`).join(' | ');
+      }
+
       return property.format === "date-time" ? "Date" : "string";
     }
 
@@ -305,7 +317,7 @@ const getTemplateView = (
   swagger: Swagger.ISpec,
   baseUrl: string
 ): ITemplateView => {
-  const definitions = swagger.definitions;
+  const definitions = swagger.definitions || swagger.components?.schemas;
   if (!definitions) {
     throw new Error("No definitions.");
   }
@@ -316,7 +328,7 @@ const getTemplateView = (
   }
 
   const serviceMap: { [serviceName: string]: ITemplateService } = {};
-  Object.keys(paths).forEach(pathKey => {
+  Object.keys(paths).forEach((pathKey) => {
     const methods = [
       "get",
       "post",
@@ -324,13 +336,13 @@ const getTemplateView = (
       "patch",
       "put",
       "options",
-      "head"
+      "head",
     ];
     const path = paths[pathKey];
 
     Object.keys(path)
-      .filter(operationKey => methods.find(m => m === operationKey))
-      .forEach(operationKey => {
+      .filter((operationKey) => methods.find((m) => m === operationKey))
+      .forEach((operationKey) => {
         const operation = (path as any)[operationKey] as Swagger.IOperation;
         if (!operation.operationId || !operation.tags) {
           throw new Error("no tags for " + JSON.stringify(path));
@@ -339,7 +351,7 @@ const getTemplateView = (
         const tag = operation.tags[0];
         const service = (serviceMap[tag] = serviceMap[tag] || {
           name: `${tag}Service`,
-          operations: []
+          operations: [],
         });
 
         let operationId = operation.operationId.replace("_", "");
@@ -359,10 +371,11 @@ const getTemplateView = (
         let hasBodyParameter = false;
 
         if (parameters && parameters.length) {
-          paramsInterfaceName = `I${tag}${operationId.charAt(0).toUpperCase() +
-            operationId.slice(1)}Params`;
+          paramsInterfaceName = `I${tag}${
+            operationId.charAt(0).toUpperCase() + operationId.slice(1)
+          }Params`;
           signature = `_params: ${paramsInterfaceName}`;
-          parameters.forEach(parameter => {
+          parameters.forEach((parameter) => {
             const parameterName = parameter.name;
 
             operationParameters.push({
@@ -370,7 +383,7 @@ const getTemplateView = (
                 parameter.required === false ? "?" : ""
               }`,
               parameterType: getPropertyTypeFromSwaggerParameter(parameter),
-              description: parameter.description
+              description: parameter.description,
             });
 
             if (parameter.in === "path") {
@@ -389,16 +402,24 @@ const getTemplateView = (
 
             if (parameter.in === "body") {
               hasBodyParameter = true;
-              bodyParameter = parameterName;
+              bodyParameter = `.${parameterName}`;
             }
           });
+        }
+
+        if ((operation as any).requestBody) {
+          paramsInterfaceName = getTypeFromRef((operation as any).requestBody.content['application/json'].schema.$ref);
+          signature = `_params: ${paramsInterfaceName}`;
+          hasBodyParameter = true;
+          bodyParameter = '';
         }
 
         let returnType = "void";
         if (operation.responses["200"]) {
           returnType = getNormalizedDefinitionKey(
-            getPropertyTypeFromSwaggerProperty(operation.responses["200"]
-              .schema as Swagger.ISchema)
+            getPropertyTypeFromSwaggerProperty(
+              (operation.responses["200"].schema || (operation.responses["200"] as any).content['application/json'].schema) as Swagger.ISchema
+            )
           );
         }
 
@@ -414,7 +435,7 @@ const getTemplateView = (
           returnType,
           paramsInterfaceName,
           hasBodyParameter,
-          description: operation.description
+          description: operation.description,
         } as ITemplateOperation);
       });
   });
@@ -422,38 +443,47 @@ const getTemplateView = (
   return {
     baseUrl,
     apiPath: swagger.basePath as string,
-    services: Object.keys(serviceMap).map(key => serviceMap[key]),
-    models: Object.keys(definitions).map(definitionKey => {
+    services: Object.keys(serviceMap).map((key) => serviceMap[key]),
+    models: Object.keys(definitions).map((definitionKey) => {
       const definition = definitions[definitionKey];
       if (!definition) {
         throw new Error("No definition found.");
       }
 
-      const properties = definition.properties;
+      const properties = definition.properties || {};
       if (!properties) {
-        console.log(definition);
         throw new Error("No definition properties found.");
+      }
+
+      const unionOf = new Array<string>();
+      if ((definition as any).anyOf) {
+        (definition as any).anyOf.forEach((v: any) => {
+          if ('$ref' in v) {
+            unionOf.push(getTypeFromRef(v.$ref));
+          }
+        });
       }
 
       return {
         name: `${getNormalizedDefinitionKey(definitionKey)}`,
         description: definition.description,
-        properties: Object.keys(properties).map(propertyKey => {
+        unionOf: unionOf.join(' | '),
+        properties: Object.keys(properties).map((propertyKey) => {
           const property = properties[propertyKey];
           const isRequired =
             definition.required &&
             definition.required.find(
-              propertyName => propertyName === propertyKey
+              (propertyName) => propertyName === propertyKey
             );
 
           return {
             propertyName: `${propertyKey}${isRequired ? "" : "?"}`,
             propertyType: getPropertyTypeFromSwaggerProperty(property),
-            description: property.description
+            description: property.description,
           };
-        })
+        }),
       };
-    })
+    }),
   };
 };
 
@@ -474,7 +504,7 @@ const specFetch = {
   file: async (path: string) => {
     const raw = await fsReadFile(path);
     return JSON.parse(raw.toString("utf8")) as Swagger.ISpec;
-  }
+  },
 };
 
 export interface IGenerateParams {
@@ -492,7 +522,7 @@ export const generate = async ({
   destPath,
   baseUrl,
   namespace,
-  spec
+  spec,
 }: IGenerateParams) => {
   if (!spec) {
     const fetcher = specFetch[type];

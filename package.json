@@ -18,21 +18,22 @@
   "license": "MIT",
   "scripts": {
     "build": "yarn tsc",
-    "generate": "yarn rimraf ./artifacts/api.ts && yarn tsc && node ./dist/cli.js -f ./artifacts/swagger.json -n TestClient -o ./artifacts/api.ts",
+    "generate": "yarn rimraf ./artifacts/api.ts && yarn tsc && node ./dist/cli.js -f ./artifacts/swagger.json -s 2 -n TestClient -o ./artifacts/api.ts",
+    "generate:v3": "yarn rimraf ./artifacts/api-v3.ts && yarn tsc && node ./dist/cli.js -f ./artifacts/swagger-v3.json -s 3 -n TestClient -o ./artifacts/api-v3.ts",
     "prepublish": "yarn build"
   },
   "dependencies": {
-    "handlebars": "^4.0.12",
-    "superagent": "^4.0.0",
-    "yargs": "^12.0.5"
+    "handlebars": "^4.7.6",
+    "superagent": "^5.2.2",
+    "yargs": "^15.3.1"
   },
   "devDependencies": {
-    "@types/handlebars": "^4.0.39",
-    "@types/node": "^10.12.9",
-    "@types/superagent": "^3.8.4",
-    "@types/yargs": "^12.0.1",
-    "rimraf": "^2.6.2",
-    "typescript": "^3.1.6"
+    "@types/handlebars": "^4.1.0",
+    "@types/node": "^14.0.6",
+    "@types/superagent": "^4.1.7",
+    "@types/yargs": "^15.0.5",
+    "rimraf": "^3.0.2",
+    "typescript": "^3.9.3"
   },
   "peerDependencies": {
     "@types/superagent": "^3.8.4",

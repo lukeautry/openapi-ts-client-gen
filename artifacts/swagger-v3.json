@@ -1,0 +1,1905 @@
+{
+	"components": {
+		"examples": {},
+		"headers": {},
+		"parameters": {},
+		"requestBodies": {},
+		"responses": {},
+		"schemas": {
+			"IShortTextContainsRule": {
+				"properties": {
+					"error_message": {
+						"type": "string"
+					},
+					"type": {
+						"type": "string",
+						"enum": [
+							"text-contains"
+						],
+						"nullable": false
+					},
+					"value": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"type",
+					"value"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"IShortTextNotContainsRule": {
+				"properties": {
+					"error_message": {
+						"type": "string"
+					},
+					"type": {
+						"type": "string",
+						"enum": [
+							"text-not-contains"
+						],
+						"nullable": false
+					},
+					"value": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"type",
+					"value"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"IShortTextEmailRule": {
+				"properties": {
+					"error_message": {
+						"type": "string"
+					},
+					"type": {
+						"type": "string",
+						"enum": [
+							"is-email"
+						],
+						"nullable": false
+					}
+				},
+				"required": [
+					"type"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"IShortTextUrlRule": {
+				"properties": {
+					"error_message": {
+						"type": "string"
+					},
+					"type": {
+						"type": "string",
+						"enum": [
+							"is-url"
+						],
+						"nullable": false
+					}
+				},
+				"required": [
+					"type"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"IShortTextMinLengthRule": {
+				"properties": {
+					"error_message": {
+						"type": "string"
+					},
+					"type": {
+						"type": "string",
+						"enum": [
+							"min-length"
+						],
+						"nullable": false
+					},
+					"value": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"type",
+					"value"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"IShortTextMaxLengthRule": {
+				"properties": {
+					"error_message": {
+						"type": "string"
+					},
+					"type": {
+						"type": "string",
+						"enum": [
+							"max-length"
+						],
+						"nullable": false
+					},
+					"value": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"type",
+					"value"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"IShortTextRegexMatchRule": {
+				"properties": {
+					"error_message": {
+						"type": "string"
+					},
+					"type": {
+						"type": "string",
+						"enum": [
+							"regex-match"
+						],
+						"nullable": false
+					},
+					"value": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"type",
+					"value"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"ShortTextValidationRule": {
+				"anyOf": [
+					{
+						"$ref": "#/components/schemas/IShortTextContainsRule"
+					},
+					{
+						"$ref": "#/components/schemas/IShortTextNotContainsRule"
+					},
+					{
+						"$ref": "#/components/schemas/IShortTextEmailRule"
+					},
+					{
+						"$ref": "#/components/schemas/IShortTextUrlRule"
+					},
+					{
+						"$ref": "#/components/schemas/IShortTextMinLengthRule"
+					},
+					{
+						"$ref": "#/components/schemas/IShortTextMaxLengthRule"
+					},
+					{
+						"$ref": "#/components/schemas/IShortTextRegexMatchRule"
+					}
+				]
+			},
+			"Form": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double",
+						"description": "Unique Identifier"
+					},
+					"date_created": {
+						"type": "string",
+						"format": "date-time",
+						"description": "Date of creation"
+					},
+					"date_updated": {
+						"type": "string",
+						"format": "date-time",
+						"description": "Date of updated"
+					},
+					"title": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"owner_id": {
+						"type": "number",
+						"format": "double"
+					},
+					"published": {
+						"type": "boolean"
+					},
+					"shortTextFields": {
+						"items": {
+							"$ref": "#/components/schemas/ShortTextField"
+						},
+						"type": "array"
+					},
+					"longTextFields": {
+						"items": {
+							"$ref": "#/components/schemas/LongTextField"
+						},
+						"type": "array"
+					},
+					"textEnumFields": {
+						"items": {
+							"$ref": "#/components/schemas/TextEnumField"
+						},
+						"type": "array"
+					},
+					"dateFields": {
+						"items": {
+							"$ref": "#/components/schemas/DateField"
+						},
+						"type": "array"
+					},
+					"permissions": {
+						"items": {
+							"$ref": "#/components/schemas/FormPermission"
+						},
+						"type": "array"
+					},
+					"submissions": {
+						"items": {
+							"$ref": "#/components/schemas/Submission"
+						},
+						"type": "array"
+					},
+					"owner": {
+						"$ref": "#/components/schemas/User"
+					}
+				},
+				"required": [
+					"id",
+					"date_created",
+					"date_updated",
+					"title",
+					"description",
+					"owner_id",
+					"published"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"ShortTextFieldValue": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double",
+						"description": "Unique Identifier"
+					},
+					"date_created": {
+						"type": "string",
+						"format": "date-time",
+						"description": "Date of creation"
+					},
+					"date_updated": {
+						"type": "string",
+						"format": "date-time",
+						"description": "Date of updated"
+					},
+					"submission": {
+						"$ref": "#/components/schemas/Submission"
+					},
+					"submission_id": {
+						"type": "number",
+						"format": "double"
+					},
+					"field": {
+						"$ref": "#/components/schemas/ShortTextField"
+					},
+					"field_id": {
+						"type": "number",
+						"format": "double"
+					},
+					"value": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"id",
+					"date_created",
+					"date_updated",
+					"submission_id",
+					"field_id",
+					"value"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"Submission": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double",
+						"description": "Unique Identifier"
+					},
+					"date_created": {
+						"type": "string",
+						"format": "date-time",
+						"description": "Date of creation"
+					},
+					"date_updated": {
+						"type": "string",
+						"format": "date-time",
+						"description": "Date of updated"
+					},
+					"form": {
+						"$ref": "#/components/schemas/Form"
+					},
+					"form_id": {
+						"type": "number",
+						"format": "double"
+					},
+					"shortTextFieldValues": {
+						"items": {
+							"$ref": "#/components/schemas/ShortTextFieldValue"
+						},
+						"type": "array"
+					},
+					"longTextFieldValues": {
+						"items": {
+							"$ref": "#/components/schemas/LongTextFieldValue"
+						},
+						"type": "array"
+					},
+					"textEnumFieldValues": {
+						"items": {
+							"$ref": "#/components/schemas/TextEnumFieldValue"
+						},
+						"type": "array"
+					},
+					"dateFieldValues": {
+						"items": {
+							"$ref": "#/components/schemas/DateFieldValue"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"id",
+					"date_created",
+					"date_updated",
+					"form_id"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"LongTextFieldValue": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double",
+						"description": "Unique Identifier"
+					},
+					"date_created": {
+						"type": "string",
+						"format": "date-time",
+						"description": "Date of creation"
+					},
+					"date_updated": {
+						"type": "string",
+						"format": "date-time",
+						"description": "Date of updated"
+					},
+					"submission": {
+						"$ref": "#/components/schemas/Submission"
+					},
+					"submission_id": {
+						"type": "number",
+						"format": "double"
+					},
+					"field": {
+						"$ref": "#/components/schemas/LongTextField"
+					},
+					"field_id": {
+						"type": "number",
+						"format": "double"
+					},
+					"value": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"id",
+					"date_created",
+					"date_updated",
+					"submission_id",
+					"field_id",
+					"value"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"LongTextField": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double",
+						"description": "Unique Identifier"
+					},
+					"date_created": {
+						"type": "string",
+						"format": "date-time",
+						"description": "Date of creation"
+					},
+					"date_updated": {
+						"type": "string",
+						"format": "date-time",
+						"description": "Date of updated"
+					},
+					"name": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"index": {
+						"type": "number",
+						"format": "double"
+					},
+					"form_id": {
+						"type": "number",
+						"format": "double"
+					},
+					"form": {
+						"$ref": "#/components/schemas/Form"
+					},
+					"required": {
+						"type": "boolean"
+					},
+					"values": {
+						"items": {
+							"$ref": "#/components/schemas/LongTextFieldValue"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"id",
+					"date_created",
+					"date_updated",
+					"name",
+					"description",
+					"index",
+					"form_id",
+					"required"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"TextEnumField": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double",
+						"description": "Unique Identifier"
+					},
+					"date_created": {
+						"type": "string",
+						"format": "date-time",
+						"description": "Date of creation"
+					},
+					"date_updated": {
+						"type": "string",
+						"format": "date-time",
+						"description": "Date of updated"
+					},
+					"name": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"index": {
+						"type": "number",
+						"format": "double"
+					},
+					"form_id": {
+						"type": "number",
+						"format": "double"
+					},
+					"form": {
+						"$ref": "#/components/schemas/Form"
+					},
+					"required": {
+						"type": "boolean"
+					},
+					"options": {
+						"items": {
+							"$ref": "#/components/schemas/TextEnumFieldOption"
+						},
+						"type": "array"
+					},
+					"values": {
+						"items": {
+							"$ref": "#/components/schemas/TextEnumFieldValue"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"id",
+					"date_created",
+					"date_updated",
+					"name",
+					"description",
+					"index",
+					"form_id",
+					"required"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"TextEnumFieldOption": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double",
+						"description": "Unique Identifier"
+					},
+					"date_created": {
+						"type": "string",
+						"format": "date-time",
+						"description": "Date of creation"
+					},
+					"date_updated": {
+						"type": "string",
+						"format": "date-time",
+						"description": "Date of updated"
+					},
+					"label": {
+						"type": "string"
+					},
+					"index": {
+						"type": "number",
+						"format": "double"
+					},
+					"field": {
+						"$ref": "#/components/schemas/TextEnumField"
+					},
+					"field_id": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"id",
+					"date_created",
+					"date_updated",
+					"label",
+					"index",
+					"field_id"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"TextEnumFieldValue": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double",
+						"description": "Unique Identifier"
+					},
+					"date_created": {
+						"type": "string",
+						"format": "date-time",
+						"description": "Date of creation"
+					},
+					"date_updated": {
+						"type": "string",
+						"format": "date-time",
+						"description": "Date of updated"
+					},
+					"submission": {
+						"$ref": "#/components/schemas/Submission"
+					},
+					"submission_id": {
+						"type": "number",
+						"format": "double"
+					},
+					"field": {
+						"$ref": "#/components/schemas/TextEnumField"
+					},
+					"field_id": {
+						"type": "number",
+						"format": "double"
+					},
+					"value": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"id",
+					"date_created",
+					"date_updated",
+					"submission_id",
+					"field_id",
+					"value"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"DateFieldValue": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double",
+						"description": "Unique Identifier"
+					},
+					"date_created": {
+						"type": "string",
+						"format": "date-time",
+						"description": "Date of creation"
+					},
+					"date_updated": {
+						"type": "string",
+						"format": "date-time",
+						"description": "Date of updated"
+					},
+					"submission": {
+						"$ref": "#/components/schemas/Submission"
+					},
+					"submission_id": {
+						"type": "number",
+						"format": "double"
+					},
+					"field": {
+						"$ref": "#/components/schemas/DateField"
+					},
+					"field_id": {
+						"type": "number",
+						"format": "double"
+					},
+					"value": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"id",
+					"date_created",
+					"date_updated",
+					"submission_id",
+					"field_id",
+					"value"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"DateField": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double",
+						"description": "Unique Identifier"
+					},
+					"date_created": {
+						"type": "string",
+						"format": "date-time",
+						"description": "Date of creation"
+					},
+					"date_updated": {
+						"type": "string",
+						"format": "date-time",
+						"description": "Date of updated"
+					},
+					"name": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"index": {
+						"type": "number",
+						"format": "double"
+					},
+					"form_id": {
+						"type": "number",
+						"format": "double"
+					},
+					"form": {
+						"$ref": "#/components/schemas/Form"
+					},
+					"required": {
+						"type": "boolean"
+					},
+					"values": {
+						"items": {
+							"$ref": "#/components/schemas/DateFieldValue"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"id",
+					"date_created",
+					"date_updated",
+					"name",
+					"description",
+					"index",
+					"form_id",
+					"required"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"ShortTextField": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double",
+						"description": "Unique Identifier"
+					},
+					"date_created": {
+						"type": "string",
+						"format": "date-time",
+						"description": "Date of creation"
+					},
+					"date_updated": {
+						"type": "string",
+						"format": "date-time",
+						"description": "Date of updated"
+					},
+					"name": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"index": {
+						"type": "number",
+						"format": "double"
+					},
+					"form_id": {
+						"type": "number",
+						"format": "double"
+					},
+					"form": {
+						"$ref": "#/components/schemas/Form"
+					},
+					"required": {
+						"type": "boolean"
+					},
+					"validation": {
+						"$ref": "#/components/schemas/ShortTextValidationRule"
+					},
+					"values": {
+						"items": {
+							"$ref": "#/components/schemas/ShortTextFieldValue"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"id",
+					"date_created",
+					"date_updated",
+					"name",
+					"description",
+					"index",
+					"form_id",
+					"required"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"FormPermissionType": {
+				"type": "string",
+				"enum": [
+					"owner"
+				],
+				"nullable": false
+			},
+			"User": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double",
+						"description": "Unique Identifier"
+					},
+					"date_created": {
+						"type": "string",
+						"format": "date-time",
+						"description": "Date of creation"
+					},
+					"date_updated": {
+						"type": "string",
+						"format": "date-time",
+						"description": "Date of updated"
+					},
+					"email": {
+						"type": "string"
+					},
+					"first_name": {
+						"type": "string"
+					},
+					"last_name": {
+						"type": "string"
+					},
+					"forms": {
+						"items": {
+							"$ref": "#/components/schemas/Form"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"id",
+					"date_created",
+					"date_updated",
+					"email",
+					"first_name",
+					"last_name"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"FormPermission": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double",
+						"description": "Unique Identifier"
+					},
+					"date_created": {
+						"type": "string",
+						"format": "date-time",
+						"description": "Date of creation"
+					},
+					"date_updated": {
+						"type": "string",
+						"format": "date-time",
+						"description": "Date of updated"
+					},
+					"form_id": {
+						"type": "number",
+						"format": "double"
+					},
+					"user_id": {
+						"type": "number",
+						"format": "double"
+					},
+					"type": {
+						"$ref": "#/components/schemas/FormPermissionType"
+					},
+					"form": {
+						"$ref": "#/components/schemas/Form"
+					},
+					"user": {
+						"$ref": "#/components/schemas/User"
+					}
+				},
+				"required": [
+					"id",
+					"date_created",
+					"date_updated",
+					"form_id",
+					"user_id",
+					"type"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"ICreateShortTextFieldRequest": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"index": {
+						"type": "number",
+						"format": "double"
+					},
+					"required": {
+						"type": "boolean"
+					},
+					"validation": {
+						"$ref": "#/components/schemas/ShortTextValidationRule"
+					}
+				},
+				"required": [
+					"name",
+					"description",
+					"index",
+					"required"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"ICreateLongTextFieldRequest": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"index": {
+						"type": "number",
+						"format": "double"
+					},
+					"required": {
+						"type": "boolean"
+					}
+				},
+				"required": [
+					"name",
+					"description",
+					"index",
+					"required"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"ICreateTextEnumFieldOptionRequest": {
+				"properties": {
+					"label": {
+						"type": "string"
+					},
+					"index": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"label",
+					"index"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"ICreateTextEnumFieldRequest": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"index": {
+						"type": "number",
+						"format": "double"
+					},
+					"required": {
+						"type": "boolean"
+					},
+					"options": {
+						"items": {
+							"$ref": "#/components/schemas/ICreateTextEnumFieldOptionRequest"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"name",
+					"description",
+					"index",
+					"required",
+					"options"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"ICreateDateFieldRequest": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"index": {
+						"type": "number",
+						"format": "double"
+					},
+					"required": {
+						"type": "boolean"
+					}
+				},
+				"required": [
+					"name",
+					"description",
+					"index",
+					"required"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"ICreateFormRequest": {
+				"properties": {
+					"title": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"published": {
+						"type": "boolean"
+					},
+					"shortTextFields": {
+						"items": {
+							"$ref": "#/components/schemas/ICreateShortTextFieldRequest"
+						},
+						"type": "array"
+					},
+					"longTextFields": {
+						"items": {
+							"$ref": "#/components/schemas/ICreateLongTextFieldRequest"
+						},
+						"type": "array"
+					},
+					"textEnumFields": {
+						"items": {
+							"$ref": "#/components/schemas/ICreateTextEnumFieldRequest"
+						},
+						"type": "array"
+					},
+					"dateFields": {
+						"items": {
+							"$ref": "#/components/schemas/ICreateDateFieldRequest"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"title",
+					"description",
+					"published",
+					"shortTextFields",
+					"longTextFields",
+					"textEnumFields",
+					"dateFields"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"IUpdateShortTextFieldRequest": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"name": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"index": {
+						"type": "number",
+						"format": "double"
+					},
+					"required": {
+						"type": "boolean"
+					},
+					"validation": {
+						"$ref": "#/components/schemas/ShortTextValidationRule"
+					}
+				},
+				"required": [
+					"id",
+					"name",
+					"description",
+					"index",
+					"required"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"IDeleteFieldRequest": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"id"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"IShortTextFieldOperations": {
+				"properties": {
+					"create": {
+						"items": {
+							"$ref": "#/components/schemas/ICreateShortTextFieldRequest"
+						},
+						"type": "array"
+					},
+					"update": {
+						"items": {
+							"$ref": "#/components/schemas/IUpdateShortTextFieldRequest"
+						},
+						"type": "array"
+					},
+					"delete": {
+						"items": {
+							"$ref": "#/components/schemas/IDeleteFieldRequest"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"create",
+					"update",
+					"delete"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"IUpdateLongTextFieldRequest": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"name": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"index": {
+						"type": "number",
+						"format": "double"
+					},
+					"required": {
+						"type": "boolean"
+					}
+				},
+				"required": [
+					"id",
+					"name",
+					"description",
+					"index",
+					"required"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"ILongTextFieldOperations": {
+				"properties": {
+					"create": {
+						"items": {
+							"$ref": "#/components/schemas/ICreateLongTextFieldRequest"
+						},
+						"type": "array"
+					},
+					"update": {
+						"items": {
+							"$ref": "#/components/schemas/IUpdateLongTextFieldRequest"
+						},
+						"type": "array"
+					},
+					"delete": {
+						"items": {
+							"$ref": "#/components/schemas/IDeleteFieldRequest"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"create",
+					"update",
+					"delete"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"IUpdateTextEnumFieldOptionRequest": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"label": {
+						"type": "string"
+					},
+					"index": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"id",
+					"label",
+					"index"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"ITextEnumFieldOptionOperations": {
+				"properties": {
+					"create": {
+						"items": {
+							"$ref": "#/components/schemas/ICreateTextEnumFieldOptionRequest"
+						},
+						"type": "array"
+					},
+					"update": {
+						"items": {
+							"$ref": "#/components/schemas/IUpdateTextEnumFieldOptionRequest"
+						},
+						"type": "array"
+					},
+					"delete": {
+						"items": {
+							"$ref": "#/components/schemas/IDeleteFieldRequest"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"create",
+					"update",
+					"delete"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"IUpdateTextEnumFieldRequest": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"name": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"index": {
+						"type": "number",
+						"format": "double"
+					},
+					"options": {
+						"$ref": "#/components/schemas/ITextEnumFieldOptionOperations"
+					},
+					"required": {
+						"type": "boolean"
+					}
+				},
+				"required": [
+					"id",
+					"name",
+					"description",
+					"index",
+					"options",
+					"required"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"ITextEnumFieldOperations": {
+				"properties": {
+					"create": {
+						"items": {
+							"$ref": "#/components/schemas/ICreateTextEnumFieldRequest"
+						},
+						"type": "array"
+					},
+					"update": {
+						"items": {
+							"$ref": "#/components/schemas/IUpdateTextEnumFieldRequest"
+						},
+						"type": "array"
+					},
+					"delete": {
+						"items": {
+							"$ref": "#/components/schemas/IDeleteFieldRequest"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"create",
+					"update",
+					"delete"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"IUpdateDateFieldRequest": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"name": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"index": {
+						"type": "number",
+						"format": "double"
+					},
+					"required": {
+						"type": "boolean"
+					}
+				},
+				"required": [
+					"id",
+					"name",
+					"description",
+					"index",
+					"required"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"IDateFieldOperations": {
+				"properties": {
+					"create": {
+						"items": {
+							"$ref": "#/components/schemas/ICreateDateFieldRequest"
+						},
+						"type": "array"
+					},
+					"update": {
+						"items": {
+							"$ref": "#/components/schemas/IUpdateDateFieldRequest"
+						},
+						"type": "array"
+					},
+					"delete": {
+						"items": {
+							"$ref": "#/components/schemas/IDeleteFieldRequest"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"create",
+					"update",
+					"delete"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"IUpdateFormRequest": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"title": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"published": {
+						"type": "boolean"
+					},
+					"shortTextFields": {
+						"$ref": "#/components/schemas/IShortTextFieldOperations"
+					},
+					"longTextFields": {
+						"$ref": "#/components/schemas/ILongTextFieldOperations"
+					},
+					"textEnumFields": {
+						"$ref": "#/components/schemas/ITextEnumFieldOperations"
+					},
+					"dateFields": {
+						"$ref": "#/components/schemas/IDateFieldOperations"
+					}
+				},
+				"required": [
+					"id",
+					"title",
+					"description",
+					"published",
+					"shortTextFields",
+					"longTextFields",
+					"textEnumFields",
+					"dateFields"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"IAccessToken": {
+				"properties": {
+					"value": {
+						"type": "string"
+					},
+					"expires": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"user": {
+						"$ref": "#/components/schemas/User"
+					}
+				},
+				"required": [
+					"value",
+					"expires",
+					"user"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"IRegisterUserParams": {
+				"properties": {
+					"email": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string"
+					},
+					"firstName": {
+						"type": "string"
+					},
+					"lastName": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"email",
+					"password",
+					"firstName",
+					"lastName"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"ILoginRequest": {
+				"properties": {
+					"email": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"email",
+					"password"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"IUpdateUserParams": {
+				"properties": {
+					"firstName": {
+						"type": "string"
+					},
+					"lastName": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"firstName",
+					"lastName"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"IChangePasswordParams": {
+				"properties": {
+					"oldPassword": {
+						"type": "string"
+					},
+					"newPassword": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"oldPassword",
+					"newPassword"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"IConsumeResetPasswordParams": {
+				"properties": {
+					"token": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"token",
+					"password"
+				],
+				"type": "object",
+				"additionalProperties": true
+			}
+		},
+		"securitySchemes": {}
+	},
+	"info": {
+		"title": ""
+	},
+	"openapi": "3.0.0",
+	"paths": {
+		"/forms": {
+			"get": {
+				"operationId": "GetList",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/Form"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Forms"
+				],
+				"security": [
+					{
+						"api_token": []
+					}
+				],
+				"parameters": []
+			},
+			"post": {
+				"operationId": "Create",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Form"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Forms"
+				],
+				"security": [
+					{
+						"api_token": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/ICreateFormRequest"
+							}
+						}
+					}
+				}
+			},
+			"put": {
+				"operationId": "Update",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Form"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Forms"
+				],
+				"security": [
+					{
+						"api_token": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IUpdateFormRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/forms/{id}": {
+			"get": {
+				"operationId": "Get",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Form"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Forms"
+				],
+				"security": [
+					{
+						"api_token": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			},
+			"delete": {
+				"operationId": "Delete",
+				"responses": {
+					"204": {
+						"description": "No content"
+					}
+				},
+				"tags": [
+					"Forms"
+				],
+				"security": [
+					{
+						"api_token": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/users/register": {
+			"post": {
+				"operationId": "Register",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IAccessToken"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Users"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IRegisterUserParams"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/users/login": {
+			"post": {
+				"operationId": "Login",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IAccessToken"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Users"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/ILoginRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/users": {
+			"get": {
+				"operationId": "Current",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/User"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Users"
+				],
+				"security": [
+					{
+						"api_token": []
+					}
+				],
+				"parameters": []
+			},
+			"put": {
+				"operationId": "Update",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/User"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Users"
+				],
+				"security": [
+					{
+						"api_token": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IUpdateUserParams"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/users/change_password": {
+			"post": {
+				"operationId": "ChangePassword",
+				"responses": {
+					"204": {
+						"description": "No content"
+					}
+				},
+				"tags": [
+					"Users"
+				],
+				"security": [
+					{
+						"api_token": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IChangePasswordParams"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/users/reset_password": {
+			"post": {
+				"operationId": "ResetPassword",
+				"responses": {
+					"204": {
+						"description": "No content"
+					}
+				},
+				"tags": [
+					"Users"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "email",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/users/consume_reset_password": {
+			"post": {
+				"operationId": "ConsumeResetPassword",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IAccessToken"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Users"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IConsumeResetPasswordParams"
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"servers": [
+		{
+			"url": "/api"
+		}
+	]
+}
