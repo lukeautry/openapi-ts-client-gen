@@ -1,5 +1,6 @@
-import * as yargs from "yargs";
-import { generate } from "./generate-client";
+#!/usr/bin/env node
+import * as yargs from 'yargs';
+import { generate } from './generate-client';
 
 interface IArgs extends yargs.Arguments {
   out: string;
