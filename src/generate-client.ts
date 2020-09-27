@@ -536,8 +536,15 @@ export const generate = async ({
   }
 
   try {
+    let url = baseUrl || spec.host;
+    if ((spec as any).servers && (spec as any).servers[0]) {
+      if ((spec as any).servers[0].url) {
+        url = (spec as any).servers[0].url;
+      }
+    }
+
     const compiled = template(namespace)(
-      getTemplateView(spec, baseUrl || spec.host || "")
+      getTemplateView(spec, url || "")
     );
     await fsWriteFile(destPath, compiled);
   } catch (err) {

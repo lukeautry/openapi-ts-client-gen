@@ -6,6 +6,46 @@
 		"requestBodies": {},
 		"responses": {},
 		"schemas": {
+			"IForm": {
+				"properties": {
+					"title": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"owner_id": {
+						"type": "number",
+						"format": "double"
+					},
+					"published": {
+						"type": "boolean"
+					},
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"date_created": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"date_updated": {
+						"type": "string",
+						"format": "date-time"
+					}
+				},
+				"required": [
+					"title",
+					"description",
+					"owner_id",
+					"published",
+					"id",
+					"date_created",
+					"date_updated"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
 			"IShortTextContainsRule": {
 				"properties": {
 					"error_message": {
@@ -186,254 +226,19 @@
 					}
 				]
 			},
-			"Form": {
+			"IShortTextField": {
 				"properties": {
 					"id": {
 						"type": "number",
-						"format": "double",
-						"description": "Unique Identifier"
+						"format": "double"
 					},
 					"date_created": {
 						"type": "string",
-						"format": "date-time",
-						"description": "Date of creation"
+						"format": "date-time"
 					},
 					"date_updated": {
 						"type": "string",
-						"format": "date-time",
-						"description": "Date of updated"
-					},
-					"title": {
-						"type": "string"
-					},
-					"description": {
-						"type": "string"
-					},
-					"owner_id": {
-						"type": "number",
-						"format": "double"
-					},
-					"published": {
-						"type": "boolean"
-					},
-					"shortTextFields": {
-						"items": {
-							"$ref": "#/components/schemas/ShortTextField"
-						},
-						"type": "array"
-					},
-					"longTextFields": {
-						"items": {
-							"$ref": "#/components/schemas/LongTextField"
-						},
-						"type": "array"
-					},
-					"textEnumFields": {
-						"items": {
-							"$ref": "#/components/schemas/TextEnumField"
-						},
-						"type": "array"
-					},
-					"dateFields": {
-						"items": {
-							"$ref": "#/components/schemas/DateField"
-						},
-						"type": "array"
-					},
-					"permissions": {
-						"items": {
-							"$ref": "#/components/schemas/FormPermission"
-						},
-						"type": "array"
-					},
-					"submissions": {
-						"items": {
-							"$ref": "#/components/schemas/Submission"
-						},
-						"type": "array"
-					},
-					"owner": {
-						"$ref": "#/components/schemas/User"
-					}
-				},
-				"required": [
-					"id",
-					"date_created",
-					"date_updated",
-					"title",
-					"description",
-					"owner_id",
-					"published"
-				],
-				"type": "object",
-				"additionalProperties": true
-			},
-			"ShortTextFieldValue": {
-				"properties": {
-					"id": {
-						"type": "number",
-						"format": "double",
-						"description": "Unique Identifier"
-					},
-					"date_created": {
-						"type": "string",
-						"format": "date-time",
-						"description": "Date of creation"
-					},
-					"date_updated": {
-						"type": "string",
-						"format": "date-time",
-						"description": "Date of updated"
-					},
-					"submission": {
-						"$ref": "#/components/schemas/Submission"
-					},
-					"submission_id": {
-						"type": "number",
-						"format": "double"
-					},
-					"field": {
-						"$ref": "#/components/schemas/ShortTextField"
-					},
-					"field_id": {
-						"type": "number",
-						"format": "double"
-					},
-					"value": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"id",
-					"date_created",
-					"date_updated",
-					"submission_id",
-					"field_id",
-					"value"
-				],
-				"type": "object",
-				"additionalProperties": true
-			},
-			"Submission": {
-				"properties": {
-					"id": {
-						"type": "number",
-						"format": "double",
-						"description": "Unique Identifier"
-					},
-					"date_created": {
-						"type": "string",
-						"format": "date-time",
-						"description": "Date of creation"
-					},
-					"date_updated": {
-						"type": "string",
-						"format": "date-time",
-						"description": "Date of updated"
-					},
-					"form": {
-						"$ref": "#/components/schemas/Form"
-					},
-					"form_id": {
-						"type": "number",
-						"format": "double"
-					},
-					"shortTextFieldValues": {
-						"items": {
-							"$ref": "#/components/schemas/ShortTextFieldValue"
-						},
-						"type": "array"
-					},
-					"longTextFieldValues": {
-						"items": {
-							"$ref": "#/components/schemas/LongTextFieldValue"
-						},
-						"type": "array"
-					},
-					"textEnumFieldValues": {
-						"items": {
-							"$ref": "#/components/schemas/TextEnumFieldValue"
-						},
-						"type": "array"
-					},
-					"dateFieldValues": {
-						"items": {
-							"$ref": "#/components/schemas/DateFieldValue"
-						},
-						"type": "array"
-					}
-				},
-				"required": [
-					"id",
-					"date_created",
-					"date_updated",
-					"form_id"
-				],
-				"type": "object",
-				"additionalProperties": true
-			},
-			"LongTextFieldValue": {
-				"properties": {
-					"id": {
-						"type": "number",
-						"format": "double",
-						"description": "Unique Identifier"
-					},
-					"date_created": {
-						"type": "string",
-						"format": "date-time",
-						"description": "Date of creation"
-					},
-					"date_updated": {
-						"type": "string",
-						"format": "date-time",
-						"description": "Date of updated"
-					},
-					"submission": {
-						"$ref": "#/components/schemas/Submission"
-					},
-					"submission_id": {
-						"type": "number",
-						"format": "double"
-					},
-					"field": {
-						"$ref": "#/components/schemas/LongTextField"
-					},
-					"field_id": {
-						"type": "number",
-						"format": "double"
-					},
-					"value": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"id",
-					"date_created",
-					"date_updated",
-					"submission_id",
-					"field_id",
-					"value"
-				],
-				"type": "object",
-				"additionalProperties": true
-			},
-			"LongTextField": {
-				"properties": {
-					"id": {
-						"type": "number",
-						"format": "double",
-						"description": "Unique Identifier"
-					},
-					"date_created": {
-						"type": "string",
-						"format": "date-time",
-						"description": "Date of creation"
-					},
-					"date_updated": {
-						"type": "string",
-						"format": "date-time",
-						"description": "Date of updated"
+						"format": "date-time"
 					},
 					"name": {
 						"type": "string"
@@ -449,17 +254,11 @@
 						"type": "number",
 						"format": "double"
 					},
-					"form": {
-						"$ref": "#/components/schemas/Form"
-					},
 					"required": {
 						"type": "boolean"
 					},
-					"values": {
-						"items": {
-							"$ref": "#/components/schemas/LongTextFieldValue"
-						},
-						"type": "array"
+					"validation": {
+						"$ref": "#/components/schemas/ShortTextValidationRule"
 					}
 				},
 				"required": [
@@ -475,22 +274,19 @@
 				"type": "object",
 				"additionalProperties": true
 			},
-			"TextEnumField": {
+			"ILongTextField": {
 				"properties": {
 					"id": {
 						"type": "number",
-						"format": "double",
-						"description": "Unique Identifier"
+						"format": "double"
 					},
 					"date_created": {
 						"type": "string",
-						"format": "date-time",
-						"description": "Date of creation"
+						"format": "date-time"
 					},
 					"date_updated": {
 						"type": "string",
-						"format": "date-time",
-						"description": "Date of updated"
+						"format": "date-time"
 					},
 					"name": {
 						"type": "string"
@@ -506,23 +302,8 @@
 						"type": "number",
 						"format": "double"
 					},
-					"form": {
-						"$ref": "#/components/schemas/Form"
-					},
 					"required": {
 						"type": "boolean"
-					},
-					"options": {
-						"items": {
-							"$ref": "#/components/schemas/TextEnumFieldOption"
-						},
-						"type": "array"
-					},
-					"values": {
-						"items": {
-							"$ref": "#/components/schemas/TextEnumFieldValue"
-						},
-						"type": "array"
 					}
 				},
 				"required": [
@@ -538,22 +319,19 @@
 				"type": "object",
 				"additionalProperties": true
 			},
-			"TextEnumFieldOption": {
+			"ITextEnumFieldOption": {
 				"properties": {
 					"id": {
 						"type": "number",
-						"format": "double",
-						"description": "Unique Identifier"
+						"format": "double"
 					},
 					"date_created": {
 						"type": "string",
-						"format": "date-time",
-						"description": "Date of creation"
+						"format": "date-time"
 					},
 					"date_updated": {
 						"type": "string",
-						"format": "date-time",
-						"description": "Date of updated"
+						"format": "date-time"
 					},
 					"label": {
 						"type": "string"
@@ -561,9 +339,6 @@
 					"index": {
 						"type": "number",
 						"format": "double"
-					},
-					"field": {
-						"$ref": "#/components/schemas/TextEnumField"
 					},
 					"field_id": {
 						"type": "number",
@@ -581,114 +356,19 @@
 				"type": "object",
 				"additionalProperties": true
 			},
-			"TextEnumFieldValue": {
+			"ITextEnumFieldGetResult": {
 				"properties": {
 					"id": {
 						"type": "number",
-						"format": "double",
-						"description": "Unique Identifier"
+						"format": "double"
 					},
 					"date_created": {
 						"type": "string",
-						"format": "date-time",
-						"description": "Date of creation"
+						"format": "date-time"
 					},
 					"date_updated": {
 						"type": "string",
-						"format": "date-time",
-						"description": "Date of updated"
-					},
-					"submission": {
-						"$ref": "#/components/schemas/Submission"
-					},
-					"submission_id": {
-						"type": "number",
-						"format": "double"
-					},
-					"field": {
-						"$ref": "#/components/schemas/TextEnumField"
-					},
-					"field_id": {
-						"type": "number",
-						"format": "double"
-					},
-					"value": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"id",
-					"date_created",
-					"date_updated",
-					"submission_id",
-					"field_id",
-					"value"
-				],
-				"type": "object",
-				"additionalProperties": true
-			},
-			"DateFieldValue": {
-				"properties": {
-					"id": {
-						"type": "number",
-						"format": "double",
-						"description": "Unique Identifier"
-					},
-					"date_created": {
-						"type": "string",
-						"format": "date-time",
-						"description": "Date of creation"
-					},
-					"date_updated": {
-						"type": "string",
-						"format": "date-time",
-						"description": "Date of updated"
-					},
-					"submission": {
-						"$ref": "#/components/schemas/Submission"
-					},
-					"submission_id": {
-						"type": "number",
-						"format": "double"
-					},
-					"field": {
-						"$ref": "#/components/schemas/DateField"
-					},
-					"field_id": {
-						"type": "number",
-						"format": "double"
-					},
-					"value": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"id",
-					"date_created",
-					"date_updated",
-					"submission_id",
-					"field_id",
-					"value"
-				],
-				"type": "object",
-				"additionalProperties": true
-			},
-			"DateField": {
-				"properties": {
-					"id": {
-						"type": "number",
-						"format": "double",
-						"description": "Unique Identifier"
-					},
-					"date_created": {
-						"type": "string",
-						"format": "date-time",
-						"description": "Date of creation"
-					},
-					"date_updated": {
-						"type": "string",
-						"format": "date-time",
-						"description": "Date of updated"
+						"format": "date-time"
 					},
 					"name": {
 						"type": "string"
@@ -704,15 +384,12 @@
 						"type": "number",
 						"format": "double"
 					},
-					"form": {
-						"$ref": "#/components/schemas/Form"
-					},
 					"required": {
 						"type": "boolean"
 					},
-					"values": {
+					"options": {
 						"items": {
-							"$ref": "#/components/schemas/DateFieldValue"
+							"$ref": "#/components/schemas/ITextEnumFieldOption"
 						},
 						"type": "array"
 					}
@@ -725,27 +402,25 @@
 					"description",
 					"index",
 					"form_id",
-					"required"
+					"required",
+					"options"
 				],
 				"type": "object",
 				"additionalProperties": true
 			},
-			"ShortTextField": {
+			"IDateField": {
 				"properties": {
 					"id": {
 						"type": "number",
-						"format": "double",
-						"description": "Unique Identifier"
+						"format": "double"
 					},
 					"date_created": {
 						"type": "string",
-						"format": "date-time",
-						"description": "Date of creation"
+						"format": "date-time"
 					},
 					"date_updated": {
 						"type": "string",
-						"format": "date-time",
-						"description": "Date of updated"
+						"format": "date-time"
 					},
 					"name": {
 						"type": "string"
@@ -761,20 +436,8 @@
 						"type": "number",
 						"format": "double"
 					},
-					"form": {
-						"$ref": "#/components/schemas/Form"
-					},
 					"required": {
 						"type": "boolean"
-					},
-					"validation": {
-						"$ref": "#/components/schemas/ShortTextValidationRule"
-					},
-					"values": {
-						"items": {
-							"$ref": "#/components/schemas/ShortTextFieldValue"
-						},
-						"type": "array"
 					}
 				},
 				"required": [
@@ -790,99 +453,70 @@
 				"type": "object",
 				"additionalProperties": true
 			},
-			"FormPermissionType": {
-				"type": "string",
-				"enum": [
-					"owner"
-				],
-				"nullable": false
-			},
-			"User": {
+			"IFormGetResult": {
 				"properties": {
+					"title": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"owner_id": {
+						"type": "number",
+						"format": "double"
+					},
+					"published": {
+						"type": "boolean"
+					},
 					"id": {
 						"type": "number",
-						"format": "double",
-						"description": "Unique Identifier"
+						"format": "double"
 					},
 					"date_created": {
 						"type": "string",
-						"format": "date-time",
-						"description": "Date of creation"
+						"format": "date-time"
 					},
 					"date_updated": {
 						"type": "string",
-						"format": "date-time",
-						"description": "Date of updated"
+						"format": "date-time"
 					},
-					"email": {
-						"type": "string"
-					},
-					"first_name": {
-						"type": "string"
-					},
-					"last_name": {
-						"type": "string"
-					},
-					"forms": {
+					"shortTextFields": {
 						"items": {
-							"$ref": "#/components/schemas/Form"
+							"$ref": "#/components/schemas/IShortTextField"
+						},
+						"type": "array"
+					},
+					"longTextFields": {
+						"items": {
+							"$ref": "#/components/schemas/ILongTextField"
+						},
+						"type": "array"
+					},
+					"textEnumFields": {
+						"items": {
+							"$ref": "#/components/schemas/ITextEnumFieldGetResult"
+						},
+						"type": "array"
+					},
+					"dateFields": {
+						"items": {
+							"$ref": "#/components/schemas/IDateField"
 						},
 						"type": "array"
 					}
 				},
 				"required": [
+					"title",
+					"description",
+					"owner_id",
+					"published",
 					"id",
 					"date_created",
 					"date_updated",
-					"email",
-					"first_name",
-					"last_name"
-				],
-				"type": "object",
-				"additionalProperties": true
-			},
-			"FormPermission": {
-				"properties": {
-					"id": {
-						"type": "number",
-						"format": "double",
-						"description": "Unique Identifier"
-					},
-					"date_created": {
-						"type": "string",
-						"format": "date-time",
-						"description": "Date of creation"
-					},
-					"date_updated": {
-						"type": "string",
-						"format": "date-time",
-						"description": "Date of updated"
-					},
-					"form_id": {
-						"type": "number",
-						"format": "double"
-					},
-					"user_id": {
-						"type": "number",
-						"format": "double"
-					},
-					"type": {
-						"$ref": "#/components/schemas/FormPermissionType"
-					},
-					"form": {
-						"$ref": "#/components/schemas/Form"
-					},
-					"user": {
-						"$ref": "#/components/schemas/User"
-					}
-				},
-				"required": [
-					"id",
-					"date_created",
-					"date_updated",
-					"form_id",
-					"user_id",
-					"type"
+					"shortTextFields",
+					"longTextFields",
+					"textEnumFields",
+					"dateFields"
 				],
 				"type": "object",
 				"additionalProperties": true
@@ -1410,6 +1044,693 @@
 				"type": "object",
 				"additionalProperties": true
 			},
+			"Form": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double",
+						"description": "Unique Identifier"
+					},
+					"date_created": {
+						"type": "string",
+						"format": "date-time",
+						"description": "Date of creation"
+					},
+					"date_updated": {
+						"type": "string",
+						"format": "date-time",
+						"description": "Date of updated"
+					},
+					"title": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"owner_id": {
+						"type": "number",
+						"format": "double"
+					},
+					"published": {
+						"type": "boolean"
+					},
+					"shortTextFields": {
+						"items": {
+							"$ref": "#/components/schemas/ShortTextField"
+						},
+						"type": "array"
+					},
+					"longTextFields": {
+						"items": {
+							"$ref": "#/components/schemas/LongTextField"
+						},
+						"type": "array"
+					},
+					"textEnumFields": {
+						"items": {
+							"$ref": "#/components/schemas/TextEnumField"
+						},
+						"type": "array"
+					},
+					"dateFields": {
+						"items": {
+							"$ref": "#/components/schemas/DateField"
+						},
+						"type": "array"
+					},
+					"permissions": {
+						"items": {
+							"$ref": "#/components/schemas/FormPermission"
+						},
+						"type": "array"
+					},
+					"submissions": {
+						"items": {
+							"$ref": "#/components/schemas/Submission"
+						},
+						"type": "array"
+					},
+					"owner": {
+						"$ref": "#/components/schemas/User"
+					}
+				},
+				"required": [
+					"id",
+					"date_created",
+					"date_updated",
+					"title",
+					"description",
+					"owner_id",
+					"published"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"ShortTextFieldValue": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double",
+						"description": "Unique Identifier"
+					},
+					"date_created": {
+						"type": "string",
+						"format": "date-time",
+						"description": "Date of creation"
+					},
+					"date_updated": {
+						"type": "string",
+						"format": "date-time",
+						"description": "Date of updated"
+					},
+					"submission": {
+						"$ref": "#/components/schemas/Submission"
+					},
+					"submission_id": {
+						"type": "number",
+						"format": "double"
+					},
+					"field": {
+						"$ref": "#/components/schemas/ShortTextField"
+					},
+					"field_id": {
+						"type": "number",
+						"format": "double"
+					},
+					"value": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"id",
+					"date_created",
+					"date_updated",
+					"submission_id",
+					"field_id",
+					"value"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"Submission": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double",
+						"description": "Unique Identifier"
+					},
+					"date_created": {
+						"type": "string",
+						"format": "date-time",
+						"description": "Date of creation"
+					},
+					"date_updated": {
+						"type": "string",
+						"format": "date-time",
+						"description": "Date of updated"
+					},
+					"form": {
+						"$ref": "#/components/schemas/Form"
+					},
+					"form_id": {
+						"type": "number",
+						"format": "double"
+					},
+					"shortTextFieldValues": {
+						"items": {
+							"$ref": "#/components/schemas/ShortTextFieldValue"
+						},
+						"type": "array"
+					},
+					"longTextFieldValues": {
+						"items": {
+							"$ref": "#/components/schemas/LongTextFieldValue"
+						},
+						"type": "array"
+					},
+					"textEnumFieldValues": {
+						"items": {
+							"$ref": "#/components/schemas/TextEnumFieldValue"
+						},
+						"type": "array"
+					},
+					"dateFieldValues": {
+						"items": {
+							"$ref": "#/components/schemas/DateFieldValue"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"id",
+					"date_created",
+					"date_updated",
+					"form_id",
+					"shortTextFieldValues",
+					"longTextFieldValues",
+					"textEnumFieldValues",
+					"dateFieldValues"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"LongTextFieldValue": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double",
+						"description": "Unique Identifier"
+					},
+					"date_created": {
+						"type": "string",
+						"format": "date-time",
+						"description": "Date of creation"
+					},
+					"date_updated": {
+						"type": "string",
+						"format": "date-time",
+						"description": "Date of updated"
+					},
+					"submission": {
+						"$ref": "#/components/schemas/Submission"
+					},
+					"submission_id": {
+						"type": "number",
+						"format": "double"
+					},
+					"field": {
+						"$ref": "#/components/schemas/LongTextField"
+					},
+					"field_id": {
+						"type": "number",
+						"format": "double"
+					},
+					"value": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"id",
+					"date_created",
+					"date_updated",
+					"submission_id",
+					"field_id",
+					"value"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"LongTextField": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"date_created": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"date_updated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"name": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"index": {
+						"type": "number",
+						"format": "double"
+					},
+					"form_id": {
+						"type": "number",
+						"format": "double"
+					},
+					"form": {
+						"$ref": "#/components/schemas/Form"
+					},
+					"required": {
+						"type": "boolean"
+					},
+					"values": {
+						"items": {
+							"$ref": "#/components/schemas/LongTextFieldValue"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"id",
+					"date_created",
+					"date_updated",
+					"name",
+					"description",
+					"index",
+					"form_id",
+					"required"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"TextEnumField": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"date_created": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"date_updated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"name": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"index": {
+						"type": "number",
+						"format": "double"
+					},
+					"form_id": {
+						"type": "number",
+						"format": "double"
+					},
+					"form": {
+						"$ref": "#/components/schemas/Form"
+					},
+					"required": {
+						"type": "boolean"
+					},
+					"options": {
+						"items": {
+							"$ref": "#/components/schemas/TextEnumFieldOption"
+						},
+						"type": "array"
+					},
+					"values": {
+						"items": {
+							"$ref": "#/components/schemas/TextEnumFieldValue"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"id",
+					"date_created",
+					"date_updated",
+					"name",
+					"description",
+					"index",
+					"form_id",
+					"required"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"TextEnumFieldOption": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"date_created": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"date_updated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"label": {
+						"type": "string"
+					},
+					"index": {
+						"type": "number",
+						"format": "double"
+					},
+					"field_id": {
+						"type": "number",
+						"format": "double"
+					},
+					"field": {
+						"$ref": "#/components/schemas/TextEnumField"
+					}
+				},
+				"required": [
+					"id",
+					"date_created",
+					"date_updated",
+					"label",
+					"index",
+					"field_id"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"TextEnumFieldValue": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double",
+						"description": "Unique Identifier"
+					},
+					"date_created": {
+						"type": "string",
+						"format": "date-time",
+						"description": "Date of creation"
+					},
+					"date_updated": {
+						"type": "string",
+						"format": "date-time",
+						"description": "Date of updated"
+					},
+					"submission": {
+						"$ref": "#/components/schemas/Submission"
+					},
+					"submission_id": {
+						"type": "number",
+						"format": "double"
+					},
+					"field": {
+						"$ref": "#/components/schemas/TextEnumField"
+					},
+					"field_id": {
+						"type": "number",
+						"format": "double"
+					},
+					"value": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"id",
+					"date_created",
+					"date_updated",
+					"submission_id",
+					"field_id",
+					"value"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"DateFieldValue": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"date_created": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"date_updated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"submission_id": {
+						"type": "number",
+						"format": "double"
+					},
+					"field_id": {
+						"type": "number",
+						"format": "double"
+					},
+					"value": {
+						"type": "string"
+					},
+					"submission": {
+						"$ref": "#/components/schemas/Submission"
+					},
+					"field": {
+						"$ref": "#/components/schemas/DateField"
+					}
+				},
+				"required": [
+					"id",
+					"date_created",
+					"date_updated",
+					"submission_id",
+					"field_id",
+					"value"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"DateField": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"date_created": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"date_updated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"name": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"index": {
+						"type": "number",
+						"format": "double"
+					},
+					"form_id": {
+						"type": "number",
+						"format": "double"
+					},
+					"form": {
+						"$ref": "#/components/schemas/Form"
+					},
+					"required": {
+						"type": "boolean"
+					},
+					"values": {
+						"items": {
+							"$ref": "#/components/schemas/DateFieldValue"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"id",
+					"date_created",
+					"date_updated",
+					"name",
+					"description",
+					"index",
+					"form_id",
+					"required"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"ShortTextField": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"date_created": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"date_updated": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"name": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"index": {
+						"type": "number",
+						"format": "double"
+					},
+					"form_id": {
+						"type": "number",
+						"format": "double"
+					},
+					"form": {
+						"$ref": "#/components/schemas/Form"
+					},
+					"required": {
+						"type": "boolean"
+					},
+					"validation": {
+						"$ref": "#/components/schemas/ShortTextValidationRule"
+					},
+					"values": {
+						"items": {
+							"$ref": "#/components/schemas/ShortTextFieldValue"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"id",
+					"date_created",
+					"date_updated",
+					"name",
+					"description",
+					"index",
+					"form_id",
+					"required"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"FormPermissionType": {
+				"type": "string",
+				"enum": [
+					"owner"
+				],
+				"nullable": false
+			},
+			"User": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double",
+						"description": "Unique Identifier"
+					},
+					"date_created": {
+						"type": "string",
+						"format": "date-time",
+						"description": "Date of creation"
+					},
+					"date_updated": {
+						"type": "string",
+						"format": "date-time",
+						"description": "Date of updated"
+					},
+					"email": {
+						"type": "string"
+					},
+					"first_name": {
+						"type": "string"
+					},
+					"last_name": {
+						"type": "string"
+					},
+					"forms": {
+						"items": {
+							"$ref": "#/components/schemas/Form"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"id",
+					"date_created",
+					"date_updated",
+					"email",
+					"first_name",
+					"last_name"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"FormPermission": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double",
+						"description": "Unique Identifier"
+					},
+					"date_created": {
+						"type": "string",
+						"format": "date-time",
+						"description": "Date of creation"
+					},
+					"date_updated": {
+						"type": "string",
+						"format": "date-time",
+						"description": "Date of updated"
+					},
+					"form_id": {
+						"type": "number",
+						"format": "double"
+					},
+					"user_id": {
+						"type": "number",
+						"format": "double"
+					},
+					"type": {
+						"$ref": "#/components/schemas/FormPermissionType"
+					},
+					"form": {
+						"$ref": "#/components/schemas/Form"
+					},
+					"user": {
+						"$ref": "#/components/schemas/User"
+					}
+				},
+				"required": [
+					"id",
+					"date_created",
+					"date_updated",
+					"form_id",
+					"user_id",
+					"type"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
 			"IAccessToken": {
 				"properties": {
 					"value": {
@@ -1467,6 +1788,41 @@
 				"required": [
 					"email",
 					"password"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"IUser": {
+				"properties": {
+					"email": {
+						"type": "string"
+					},
+					"first_name": {
+						"type": "string"
+					},
+					"last_name": {
+						"type": "string"
+					},
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"date_created": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"date_updated": {
+						"type": "string",
+						"format": "date-time"
+					}
+				},
+				"required": [
+					"email",
+					"first_name",
+					"last_name",
+					"id",
+					"date_created",
+					"date_updated"
 				],
 				"type": "object",
 				"additionalProperties": true
@@ -1537,7 +1893,7 @@
 							"application/json": {
 								"schema": {
 									"items": {
-										"$ref": "#/components/schemas/Form"
+										"$ref": "#/components/schemas/IForm"
 									},
 									"type": "array"
 								}
@@ -1563,7 +1919,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/Form"
+									"$ref": "#/components/schemas/IFormGetResult"
 								}
 							}
 						}
@@ -1597,7 +1953,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/Form"
+									"$ref": "#/components/schemas/IFormGetResult"
 								}
 							}
 						}
@@ -1633,7 +1989,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/Form"
+									"$ref": "#/components/schemas/IFormGetResult"
 								}
 							}
 						}
@@ -1760,7 +2116,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/User"
+									"$ref": "#/components/schemas/IUser"
 								}
 							}
 						}
