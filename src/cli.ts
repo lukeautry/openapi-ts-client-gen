@@ -10,55 +10,57 @@ interface IArgs extends yargs.Arguments {
   baseUrl?: string;
 }
 
-yargs
-  .scriptName('openapi-ts-client-gen')
-  .command('$0', 'generate client', args => {
+yargs.scriptName("openapi-ts-client-gen").command(
+  "$0",
+  "generate client",
+  (args) => {
     return args.options({
-      'namespace': {
-        alias: 'n',
+      namespace: {
+        alias: "n",
         required: true,
-        description: 'Module namespace'
+        description: "Module namespace",
       },
-      'url': {
-        alias: 'u',
+      url: {
+        alias: "u",
         required: false,
-        description: 'URL of swagger.json file'
+        description: "URL of swagger.json file",
       },
-      'file': {
-        alias: 'f',
+      file: {
+        alias: "f",
         required: false,
-        description: 'Path of swagger.json file'
+        description: "Path of swagger.json file",
       },
-      'out': {
-        alias: 'o',
+      out: {
+        alias: "o",
         required: true,
-        description: 'Output path (e.g. ./out/swagger.json)'
+        description: "Output path (e.g. ./out/swagger.json)",
       },
-      'baseUrl': {
-        alias: 'b',
+      baseUrl: {
+        alias: "b",
         required: false,
-        description: 'Base URL of API'
-      }
-    })
-  }, async _args => {
+        description: "Base URL of API",
+      },
+    });
+  },
+  async (_args) => {
     const args = _args as IArgs;
     if (args.file) {
       await generate({
-        type: 'file',
+        type: "file",
         srcPath: args.file,
         destPath: args.out,
-        namespace: args.namespace
+        namespace: args.namespace,
       });
     } else if (args.url) {
       await generate({
-        type: 'url',
+        type: "url",
         srcPath: args.url,
         destPath: args.out,
-        namespace: args.namespace
+        namespace: args.namespace,
       });
     } else {
-      console.error('must provide file or url');
+      console.error("must provide file or url");
       process.exit(1);
     }
-  })
-  .argv;
+  }
+).argv;
