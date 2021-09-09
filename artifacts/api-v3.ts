@@ -68,6 +68,12 @@ export namespace TestClient {
 
 
 
+    export type MyStringEnum = 'one' | 'two';
+
+
+    export type MyNumberEnum = 3 | 4;
+
+
     export interface IForm {
       'title': string;
       'description': string;
@@ -76,6 +82,8 @@ export namespace TestClient {
       'id': number;
       'date_created': Date;
       'date_updated': Date;
+      'stringEnum'?: MyStringEnum;
+      'numberEnum'?: MyNumberEnum;
     }
 
 
@@ -545,8 +553,7 @@ export namespace TestClient {
     }
 
 
-    export interface FormPermissionType {
-    }
+    export type FormPermissionType = 'owner';
 
 
     export interface User {

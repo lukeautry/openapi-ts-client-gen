@@ -6,6 +6,20 @@
 		"requestBodies": {},
 		"responses": {},
 		"schemas": {
+      "MyStringEnum": {
+				"enum": [
+					"one",
+					"two"
+				],
+				"type": "string"
+			},
+			"MyNumberEnum": {
+				"enum": [
+					3,
+					4
+				],
+				"type": "number"
+			},
 			"IForm": {
 				"properties": {
 					"title": {
@@ -32,6 +46,12 @@
 					"date_updated": {
 						"type": "string",
 						"format": "date-time"
+					},
+          "stringEnum": {
+						"$ref": "#/components/schemas/MyStringEnum"
+					},
+					"numberEnum": {
+						"$ref": "#/components/schemas/MyNumberEnum"
 					}
 				},
 				"required": [

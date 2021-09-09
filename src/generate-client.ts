@@ -128,7 +128,7 @@ export namespace ${namespace} {
     {{/if}}
 
     {{#if unionOf}}
-    export type {{name}} = {{unionOf}};
+    export type {{name}} = {{{unionOf}}};
     {{else}}
     export interface {{name}} {
       {{#properties}}
@@ -463,6 +463,10 @@ const getTemplateView = (
             unionOf.push(getTypeFromRef(v.$ref));
           }
         });
+      }
+
+      if (definition.enum) {
+        unionOf.push(...definition.enum.map(v => definition.type === 'string' ? `'${v}'` : v.toString()));
       }
 
       return {
