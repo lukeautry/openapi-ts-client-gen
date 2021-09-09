@@ -20,6 +20,24 @@
 				],
 				"type": "number"
 			},
+      "INumberDictionary": {
+				"properties": {},
+				"type": "object",
+				"additionalProperties": {
+					"type": "number",
+					"format": "double"
+				}
+			},
+			"IStringArrayDictionary": {
+				"properties": {},
+				"type": "object",
+				"additionalProperties": {
+					"items": {
+						"type": "string"
+					},
+					"type": "array"
+				}
+			},
 			"IForm": {
 				"properties": {
 					"title": {
@@ -52,6 +70,12 @@
 					},
 					"numberEnum": {
 						"$ref": "#/components/schemas/MyNumberEnum"
+					},
+          "numDict": {
+						"$ref": "#/components/schemas/INumberDictionary"
+					},
+					"strArrayDict": {
+						"$ref": "#/components/schemas/IStringArrayDictionary"
 					}
 				},
 				"required": [

@@ -74,6 +74,16 @@ export namespace TestClient {
     export type MyNumberEnum = 3 | 4;
 
 
+    export interface INumberDictionary {
+      [key: string]: number;
+    }
+
+
+    export interface IStringArrayDictionary {
+      [key: string]: string[];
+    }
+
+
     export interface IForm {
       'title': string;
       'description': string;
@@ -84,6 +94,8 @@ export namespace TestClient {
       'date_updated': Date;
       'stringEnum'?: MyStringEnum;
       'numberEnum'?: MyNumberEnum;
+      'numDict'?: INumberDictionary;
+      'strArrayDict'?: IStringArrayDictionary;
     }
 
 

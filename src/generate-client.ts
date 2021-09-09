@@ -131,6 +131,9 @@ export namespace ${namespace} {
     export type {{name}} = {{{unionOf}}};
     {{else}}
     export interface {{name}} {
+      {{#if indexSignature}}
+      [key: string]: {{indexSignature}};
+      {{/if}}
       {{#properties}}
       {{#if description}}
       /**
@@ -238,7 +241,7 @@ const getPropertyTypeFromSwaggerProperty = (
       }
 
       if (items.type) {
-        return `any[]`;
+        return `${getTypeFromRef(items.type)}[]`;
       }
 
       return `${getTypeFromRef(items.$ref as string)}[]`;
@@ -469,10 +472,16 @@ const getTemplateView = (
         unionOf.push(...definition.enum.map(v => definition.type === 'string' ? `'${v}'` : v.toString()));
       }
 
+      let indexSignature: string | undefined;
+      if (typeof definition.additionalProperties === 'object' && definition.type === 'object') {
+        indexSignature = getPropertyTypeFromSwaggerProperty(definition.additionalProperties as any)
+      }
+
       return {
         name: `${getNormalizedDefinitionKey(definitionKey)}`,
         description: definition.description,
         unionOf: unionOf.join(' | '),
+        indexSignature,
         properties: Object.keys(properties).map((propertyKey) => {
           const property = properties[propertyKey];
           const isRequired =
